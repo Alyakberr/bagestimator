@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Concrete & Construction Material Multi-Calculator | Slab, Post Hole & Trench Estimator</title>
+<meta name="description" content="Free instant concrete calculator for slabs, patios, fence post holes, footings, and trench subbase materials. Get bag counts, cubic yards, and tonnage in real time.">
+<link rel="canonical" href="https://example.com/concrete-calculator">
+<meta property="og:title" content="Concrete & Construction Material Multi-Calculator">
+<meta property="og:description" content="Instant bag counts and material weights for slabs, post holes, and trenches. Built for the job site.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Concrete & Construction Material Multi-Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Instant calculators for concrete slabs, fence post holes, and trench subbase materials, with imperial and metric support.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many 80lb bags of concrete do I need for a 4x4 post hole?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 4x4 post hole that is 10 inches in diameter and 24 inches deep requires roughly 1 to 2 bags of 80lb concrete mix once the volume of the buried post is subtracted and a 10 percent wastage margin is added."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many bags of concrete do I need for a 10x10 slab at 4 inches thick?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 10 foot by 10 foot slab poured at 4 inches deep needs about 1.23 cubic yards of concrete, which works out to approximately 56 bags of 80lb premix including a 10 percent wastage allowance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much gravel do I need for a trench subbase?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply the trench length by width by depth in feet to get cubic feet, divide by 27 for cubic yards, then multiply by 1.4 tons per cubic yard for crushed stone, including a 10 percent compaction margin."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="adslot adslot--top" id="adTop" aria-hidden="true"></div>
+
+<header class="sitehead">
+  <div class="sitehead__bar"></div>
+  <div class="sitehead__ruler" aria-hidden="true"></div>
+  <div class="sitehead__inner">
+    <p class="sitehead__eyebrow">Job Site Math, Solved Instantly</p>
+    <h1 class="sitehead__title">Concrete &amp; Material Multi-Calculator</h1>
+    <p class="sitehead__sub">Slabs, post holes, and trench subbase — bag counts and tonnage as you type.</p>
+  </div>
+</header>
+
+<main class="appcard" id="appcard">
+
+  <div class="unittoggle">
+    <span class="unittoggle__label" id="unitLabelImperial">Imperial</span>
+    <button type="button" class="unittoggle__switch" id="unitSwitch" role="switch" aria-checked="false" aria-label="Toggle between imperial and metric units">
+      <span class="unittoggle__knob"></span>
+    </button>
+    <span class="unittoggle__label" id="unitLabelMetric">Metric</span>
+  </div>
+
+  <nav class="tabbar" role="tablist" aria-label="Calculator selection">
+    <button class="tabbar__btn is-active" id="tabBtn1" role="tab" aria-selected="true" aria-controls="panel1" data-tab="1">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="1"></rect><path d="M3 12h18"></path></svg>
+      <span class="tabbar__num">01</span>Slab &amp; Patio
+    </button>
+    <button class="tabbar__btn" id="tabBtn2" role="tab" aria-selected="false" aria-controls="panel2" data-tab="2">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="10" r="6"></circle><path d="M12 16v5"></path></svg>
+      <span class="tabbar__num">02</span>Post Holes
+    </button>
+    <button class="tabbar__btn" id="tabBtn3" role="tab" aria-selected="false" aria-controls="panel3" data-tab="3">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 18h20"></path><path d="M5 18l3-9h8l3 9"></path></svg>
+      <span class="tabbar__num">03</span>Trench &amp; Subbase
+    </button>
+  </nav>
+
+  <section class="panel is-active" id="panel1" role="tabpanel" aria-labelledby="tabBtn1">
+    <h2 class="panel__title">Slab, Patio &amp; Footing Volume</h2>
+
+    <div class="field">
+      <label for="s1Shape">Shape</label>
+      <select id="s1Shape">
+        <option value="rect">Rectangular Slab</option>
+        <option value="circle">Circular / Round Patio</option>
+      </select>
+    </div>
+
+    <div class="field" id="s1LengthWrap">
+      <label for="s1Length"><span class="unit-len">Length (ft)</span></label>
+      <input type="number" id="s1Length" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.01">
+    </div>
+
+    <div class="field" id="s1WidthWrap">
+      <label for="s1Width"><span class="unit-len">Width (ft)</span></label>
+      <input type="number" id="s1Width" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.01">
+    </div>
+
+    <div class="field" id="s1DiamWrap" hidden>
+      <label for="s1Diam"><span class="unit-len">Diameter (ft)</span></label>
+      <input type="number" id="s1Diam" inputmode="decimal" placeholder="e.g. 12" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s1Depth"><span class="unit-thick">Depth / Thickness (in)</span></label>
+      <input type="number" id="s1Depth" inputmode="decimal" placeholder="e.g. 4" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s1Bag">Concrete Bag Size</label>
+      <select id="s1Bag">
+        <option value="80">80 lb bag</option>
+        <option value="60">60 lb bag</option>
+        <option value="40">40 lb bag</option>
+      </select>
+    </div>
+
+    <div class="results" id="s1Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Volume (incl. 10% waste)</span>
+        <span class="results__value" id="s1VolOut">0.00 <small class="unit-vol3">cu ft</small></span>
+      </div>
+      <div class="results__row">
+        <span class="results__label">Volume</span>
+        <span class="results__value" id="s1YdOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Bags Needed</span>
+        <span class="results__value results__value--hero" id="s1BagsOut">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel2" role="tabpanel" aria-labelledby="tabBtn2" hidden>
+    <h2 class="panel__title">Fence Post Hole &amp; Sonotube Estimator</h2>
+
+    <div class="field">
+      <label for="s2Count">Number of Holes</label>
+      <input type="number" id="s2Count" inputmode="decimal" placeholder="e.g. 6" min="0" step="1" value="1">
+    </div>
+
+    <div class="field">
+      <label for="s2Diam"><span class="unit-thick">Hole Diameter (in)</span></label>
+      <input type="number" id="s2Diam" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s2Depth"><span class="unit-thick">Excavation Depth (in)</span></label>
+      <input type="number" id="s2Depth" inputmode="decimal" placeholder="e.g. 24" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s2Post">Submerged Lumber Post</label>
+      <select id="s2Post">
+        <option value="none">None / Concrete Column</option>
+        <option value="4x4">Standard 4x4 Post</option>
+        <option value="6x6">Heavy-Duty 6x6 Post</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="s2Bag">Concrete Bag Size</label>
+      <select id="s2Bag">
+        <option value="80">80 lb bag</option>
+        <option value="60">60 lb bag</option>
+        <option value="40">40 lb bag</option>
+      </select>
+    </div>
+
+    <div class="results" id="s2Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Net Volume (incl. 10% waste)</span>
+        <span class="results__value" id="s2VolOut">0.00 <small class="unit-vol3">cu ft</small></span>
+      </div>
+      <div class="results__row">
+        <span class="results__label">Volume</span>
+        <span class="results__value" id="s2YdOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Bags Needed</span>
+        <span class="results__value results__value--hero" id="s2BagsOut">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel3" role="tabpanel" aria-labelledby="tabBtn3" hidden>
+    <h2 class="panel__title">Trench, Aggregate &amp; Subbase Weight</h2>
+
+    <div class="field">
+      <label for="s3Length"><span class="unit-len">Total Run Length (ft)</span></label>
+      <input type="number" id="s3Length" inputmode="decimal" placeholder="e.g. 50" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s3Width"><span class="unit-len">Trench Width (ft)</span></label>
+      <input type="number" id="s3Width" inputmode="decimal" placeholder="e.g. 2" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s3Depth"><span class="unit-thick">Layer Thickness (in)</span></label>
+      <input type="number" id="s3Depth" inputmode="decimal" placeholder="e.g. 6" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s3Material">Subbase Material</label>
+      <select id="s3Material">
+        <option value="gravel">Crushed Stone / Gravel Mix</option>
+        <option value="sand">Coarse Masonry Sand</option>
+        <option value="dirt">Topsoil / Clean Fill Dirt</option>
+      </select>
+    </div>
+
+    <div class="results" id="s3Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Volume (incl. 10% margin)</span>
+        <span class="results__value" id="s3VolOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Material Weight</span>
+        <span class="results__value results__value--hero" id="s3TonOut">0.00 <small id="s3TonUnit">tons</small></span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="adslot adslot--bottom" id="adBottom" aria-hidden="true"></div>
+
+<section class="seo">
+  <h2>How Many 80lb Bags of Concrete Do I Need for a 4x4 Post Hole?</h2>
+  <p>For a typical 10 inch diameter hole dug 24 inches deep for a 4x4 post, subtract the buried post's volume from the cylinder volume, then add a 10 percent wastage margin. That generally lands between 1 and 2 bags of 80lb premix per hole, though soil conditions can shift the figure slightly.</p>
+
+  <h2>How Many Bags of Concrete Do I Need for a 10x10 Slab at 4 Inches Thick?</h2>
+  <p>A 10 foot by 10 foot slab poured 4 inches deep requires about 1.23 cubic yards of concrete once the standard 10 percent wastage buffer is included, which equals roughly 56 bags of 80lb premix.</p>
+
+  <h2>How Much Gravel Do I Need for a Trench Subbase?</h2>
+  <p>Multiply trench length by width by depth in feet to get cubic feet, divide by 27 for cubic yards, add a 10 percent compaction margin, then multiply by 1.4 tons per cubic yard for crushed stone.</p>
+
+  <table class="seo__table">
+    <caption>Quick Reference: Common Slab Sizes at 4&quot; Depth (80lb Bags, 10% Waste Included)</caption>
+    <thead>
+      <tr>
+        <th scope="col">Slab Size</th>
+        <th scope="col">Cubic Yards</th>
+        <th scope="col">80lb Bags</th>
+        <th scope="col">60lb Bags</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>8 ft × 8 ft</td><td>0.78</td><td>36</td><td>47</td></tr>
+      <tr><td>10 ft × 10 ft</td><td>1.23</td><td>56</td><td>74</td></tr>
+      <tr><td>12 ft × 12 ft</td><td>1.76</td><td>80</td><td>106</td></tr>
+      <tr><td>16 ft × 16 ft</td><td>3.13</td><td>142</td><td>189</td></tr>
+      <tr><td>20 ft × 20 ft</td><td>4.89</td><td>222</td><td>295</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer class="sitefoot">
+  <div class="sitefoot__disclaimer">
+    <strong>Important Notice:</strong> All calculations are estimates based on standard industry yield ratings and a flat 10 percent wastage margin. Actual material needs vary with soil compaction, sub-grade unevenness, form leakage, and mix consistency. Always order additional material as a contingency and consult a licensed contractor or structural engineer for load-bearing or permitted work.
+  </div>
+  <nav class="sitefoot__links" aria-label="Legal">
+    <a href="/privacy.html">Privacy Policy</a>
+    <span class="sitefoot__divider" aria-hidden="true">&middot;</span>
+    <a href="/terms.html">Terms of Service</a>
+  </nav>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

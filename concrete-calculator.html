@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Concrete & Construction Material Multi-Calculator | Slab, Post Hole & Trench Estimator</title>
+<meta name="description" content="Free instant concrete calculator for slabs, patios, fence post holes, footings, and trench subbase materials. Get bag counts, cubic yards, and tonnage in real time.">
+<link rel="canonical" href="https://example.com/concrete-calculator">
+<meta property="og:title" content="Concrete & Construction Material Multi-Calculator">
+<meta property="og:description" content="Instant bag counts and material weights for slabs, post holes, and trenches. Built for the job site.">
+<meta property="og:type" content="website">
+<style>
+:root {
+  --asphalt-900: #17181a;
+  --asphalt-800: #232527;
+  --concrete-200: #e9e6df;
+  --concrete-100: #f6f4ef;
+  --steel-600: #5a5f63;
+  --safety-orange: #ff6a1a;
+  --safety-orange-dark: #d9550f;
+  --safety-yellow: #ffc72c;
+  --ink: #1c1c1c;
+  --line: #d8d4cb;
+  --radius: 10px;
+  --font-display: "Bahnschrift", "SF Compact Display", "Arial Narrow", system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background:
+    repeating-linear-gradient(0deg, rgba(23,24,26,0.035) 0, rgba(23,24,26,0.035) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, rgba(23,24,26,0.035) 0, rgba(23,24,26,0.035) 1px, transparent 1px, transparent 40px),
+    var(--concrete-100);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+.adslot {
+  width: 100%;
+  min-height: 0;
+}
+.adslot:empty {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.sitehead {
+  background: var(--asphalt-900);
+  color: var(--concrete-100);
+  position: relative;
+  overflow: hidden;
+}
+.sitehead__bar {
+  height: 6px;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--safety-yellow),
+    var(--safety-yellow) 14px,
+    var(--asphalt-900) 14px,
+    var(--asphalt-900) 28px
+  );
+}
+.sitehead__ruler {
+  height: 16px;
+  background: var(--asphalt-800);
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--steel-600) 0,
+    var(--steel-600) 1px,
+    transparent 1px,
+    transparent 12px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    var(--concrete-200) 0,
+    var(--concrete-200) 1px,
+    transparent 1px,
+    transparent 60px
+  );
+  background-size: 12px 8px, 60px 16px;
+  background-position: left bottom, left bottom;
+  background-repeat: repeat-x;
+  opacity: 0.6;
+}
+.sitehead__inner {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px 20px 24px;
+}
+.sitehead__eyebrow {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  color: var(--safety-orange);
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+.sitehead__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.6rem, 6vw, 2.3rem);
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+.sitehead__sub {
+  margin: 0;
+  color: var(--concrete-200);
+  font-size: 0.95rem;
+  max-width: 46ch;
+}
+
+.appcard {
+  max-width: 640px;
+  margin: -18px auto 0;
+  background: var(--concrete-100);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  position: relative;
+  z-index: 2;
+  padding: 18px 18px 22px;
+}
+
+.unittoggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed var(--line);
+}
+.unittoggle__label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--steel-600);
+}
+.unittoggle__label.is-active { color: var(--ink); }
+.unittoggle__switch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--steel-600);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+.unittoggle__switch[aria-checked="true"] { background: var(--safety-orange); }
+.unittoggle__knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s ease;
+}
+.unittoggle__switch[aria-checked="true"] .unittoggle__knob {
+  transform: translateX(24px);
+}
+
+.tabbar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+.tabbar__icon {
+  color: var(--steel-600);
+}
+.tabbar__btn.is-active .tabbar__icon { color: var(--safety-yellow); }
+.tabbar__btn {
+  flex: 1;
+  background: var(--concrete-200);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 6px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--steel-600);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  line-height: 1.2;
+  transition: background 0.12s ease, color 0.12s ease, transform 0.08s ease;
+}
+.tabbar__btn:hover:not(.is-active) {
+  background: #ddd9cf;
+}
+.tabbar__btn:active {
+  transform: scale(0.97);
+}
+.tabbar__num {
+  font-size: 0.65rem;
+  color: var(--safety-orange);
+  letter-spacing: 0.08em;
+}
+.tabbar__btn.is-active {
+  background: var(--asphalt-900);
+  color: var(--concrete-100);
+  border-color: var(--asphalt-900);
+}
+.tabbar__btn.is-active .tabbar__num { color: var(--safety-yellow); }
+
+.panel { display: none; }
+.panel.is-active { display: block; }
+
+.panel__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin: 0 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--ink);
+}
+
+.field {
+  margin-bottom: 14px;
+}
+.field label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.field input,
+.field select {
+  width: 100%;
+  font-size: 16px;
+  padding: 13px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-family: var(--font-body);
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.12s ease;
+}
+.field input:hover,
+.field select:hover {
+  border-color: var(--steel-600);
+}
+.field select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--steel-600) 50%), linear-gradient(135deg, var(--steel-600) 50%, transparent 50%);
+  background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 34px;
+}
+.field input:focus,
+.field select:focus {
+  outline: 3px solid var(--safety-orange);
+  outline-offset: 1px;
+  border-color: var(--safety-orange);
+}
+
+.results {
+  margin-top: 20px;
+  background: var(--asphalt-900);
+  border-radius: 8px;
+  padding: 16px 16px 18px;
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+.results::before {
+  content: "";
+  display: block;
+  height: 5px;
+  margin: -16px -16px 14px;
+  border-radius: 8px 8px 0 0;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--safety-yellow),
+    var(--safety-yellow) 10px,
+    var(--asphalt-900) 10px,
+    var(--asphalt-900) 20px
+  );
+}
+.results__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 7px 0;
+  color: var(--concrete-200);
+  font-size: 0.92rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.results__row:last-child { border-bottom: none; }
+.results__value { font-family: var(--font-display); font-weight: 700; color: #fff; }
+.results__row--hero {
+  padding-top: 14px;
+  align-items: center;
+}
+.results__row--hero .results__label {
+  color: var(--safety-yellow);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+}
+.results__value--hero {
+  font-size: 2rem;
+  color: var(--safety-orange);
+}
+.results__value small { font-weight: 600; font-size: 0.7em; color: var(--concrete-200); }
+
+.seo {
+  max-width: 640px;
+  margin: 36px auto 0;
+  padding: 0 20px;
+}
+.seo h2 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  margin: 28px 0 8px;
+}
+.seo p { margin: 0 0 4px; color: #3a3a38; }
+.seo__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 8px;
+  font-size: 0.88rem;
+}
+.seo__table caption {
+  text-align: left;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: var(--font-display);
+}
+.seo__table th, .seo__table td {
+  border: 1px solid var(--line);
+  padding: 8px 10px;
+  text-align: left;
+}
+.seo__table th {
+  background: var(--asphalt-900);
+  color: #fff;
+}
+.seo__table tr:nth-child(even) td { background: var(--concrete-200); }
+
+.sitefoot {
+  max-width: 640px;
+  margin: 32px auto 0;
+  padding: 0 20px 40px;
+}
+.sitefoot__disclaimer {
+  border: 2px solid var(--safety-orange);
+  background: #fff6ef;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 0.85rem;
+  color: #4a3a2c;
+}
+.sitefoot__links {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+.sitefoot__links a {
+  color: var(--steel-600);
+  text-decoration: none;
+  font-weight: 700;
+}
+.sitefoot__links a:hover {
+  color: var(--safety-orange);
+  text-decoration: underline;
+}
+.sitefoot__divider {
+  margin: 0 8px;
+  color: var(--line);
+}
+
+@media (min-width: 540px) {
+  .field--pair { display: flex; gap: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .unittoggle__knob { transition: none; }
+}
+
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Concrete & Construction Material Multi-Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Instant calculators for concrete slabs, fence post holes, and trench subbase materials, with imperial and metric support.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many 80lb bags of concrete do I need for a 4x4 post hole?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 4x4 post hole that is 10 inches in diameter and 24 inches deep requires roughly 1 to 2 bags of 80lb concrete mix once the volume of the buried post is subtracted and a 10 percent wastage margin is added."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many bags of concrete do I need for a 10x10 slab at 4 inches thick?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 10 foot by 10 foot slab poured at 4 inches deep needs about 1.23 cubic yards of concrete, which works out to approximately 56 bags of 80lb premix including a 10 percent wastage allowance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much gravel do I need for a trench subbase?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply the trench length by width by depth in feet to get cubic feet, divide by 27 for cubic yards, then multiply by 1.4 tons per cubic yard for crushed stone, including a 10 percent compaction margin."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="adslot adslot--top" id="adTop" aria-hidden="true"></div>
+
+<header class="sitehead">
+  <div class="sitehead__bar"></div>
+  <div class="sitehead__ruler" aria-hidden="true"></div>
+  <div class="sitehead__inner">
+    <p class="sitehead__eyebrow">Job Site Math, Solved Instantly</p>
+    <h1 class="sitehead__title">Concrete &amp; Material Multi-Calculator</h1>
+    <p class="sitehead__sub">Slabs, post holes, and trench subbase — bag counts and tonnage as you type.</p>
+  </div>
+</header>
+
+<main class="appcard" id="appcard">
+
+  <div class="unittoggle">
+    <span class="unittoggle__label" id="unitLabelImperial">Imperial</span>
+    <button type="button" class="unittoggle__switch" id="unitSwitch" role="switch" aria-checked="false" aria-label="Toggle between imperial and metric units">
+      <span class="unittoggle__knob"></span>
+    </button>
+    <span class="unittoggle__label" id="unitLabelMetric">Metric</span>
+  </div>
+
+  <nav class="tabbar" role="tablist" aria-label="Calculator selection">
+    <button class="tabbar__btn is-active" id="tabBtn1" role="tab" aria-selected="true" aria-controls="panel1" data-tab="1">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="1"></rect><path d="M3 12h18"></path></svg>
+      <span class="tabbar__num">01</span>Slab &amp; Patio
+    </button>
+    <button class="tabbar__btn" id="tabBtn2" role="tab" aria-selected="false" aria-controls="panel2" data-tab="2">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="10" r="6"></circle><path d="M12 16v5"></path></svg>
+      <span class="tabbar__num">02</span>Post Holes
+    </button>
+    <button class="tabbar__btn" id="tabBtn3" role="tab" aria-selected="false" aria-controls="panel3" data-tab="3">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 18h20"></path><path d="M5 18l3-9h8l3 9"></path></svg>
+      <span class="tabbar__num">03</span>Trench &amp; Subbase
+    </button>
+  </nav>
+
+  <section class="panel is-active" id="panel1" role="tabpanel" aria-labelledby="tabBtn1">
+    <h2 class="panel__title">Slab, Patio &amp; Footing Volume</h2>
+
+    <div class="field">
+      <label for="s1Shape">Shape</label>
+      <select id="s1Shape">
+        <option value="rect">Rectangular Slab</option>
+        <option value="circle">Circular / Round Patio</option>
+      </select>
+    </div>
+
+    <div class="field" id="s1LengthWrap">
+      <label for="s1Length"><span class="unit-len">Length (ft)</span></label>
+      <input type="number" id="s1Length" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.01">
+    </div>
+
+    <div class="field" id="s1WidthWrap">
+      <label for="s1Width"><span class="unit-len">Width (ft)</span></label>
+      <input type="number" id="s1Width" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.01">
+    </div>
+
+    <div class="field" id="s1DiamWrap" hidden>
+      <label for="s1Diam"><span class="unit-len">Diameter (ft)</span></label>
+      <input type="number" id="s1Diam" inputmode="decimal" placeholder="e.g. 12" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s1Depth"><span class="unit-thick">Depth / Thickness (in)</span></label>
+      <input type="number" id="s1Depth" inputmode="decimal" placeholder="e.g. 4" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s1Bag">Concrete Bag Size</label>
+      <select id="s1Bag">
+        <option value="80">80 lb bag</option>
+        <option value="60">60 lb bag</option>
+        <option value="40">40 lb bag</option>
+      </select>
+    </div>
+
+    <div class="results" id="s1Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Volume (incl. 10% waste)</span>
+        <span class="results__value" id="s1VolOut">0.00 <small class="unit-vol3">cu ft</small></span>
+      </div>
+      <div class="results__row">
+        <span class="results__label">Volume</span>
+        <span class="results__value" id="s1YdOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Bags Needed</span>
+        <span class="results__value results__value--hero" id="s1BagsOut">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel2" role="tabpanel" aria-labelledby="tabBtn2" hidden>
+    <h2 class="panel__title">Fence Post Hole &amp; Sonotube Estimator</h2>
+
+    <div class="field">
+      <label for="s2Count">Number of Holes</label>
+      <input type="number" id="s2Count" inputmode="decimal" placeholder="e.g. 6" min="0" step="1" value="1">
+    </div>
+
+    <div class="field">
+      <label for="s2Diam"><span class="unit-thick">Hole Diameter (in)</span></label>
+      <input type="number" id="s2Diam" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s2Depth"><span class="unit-thick">Excavation Depth (in)</span></label>
+      <input type="number" id="s2Depth" inputmode="decimal" placeholder="e.g. 24" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s2Post">Submerged Lumber Post</label>
+      <select id="s2Post">
+        <option value="none">None / Concrete Column</option>
+        <option value="4x4">Standard 4x4 Post</option>
+        <option value="6x6">Heavy-Duty 6x6 Post</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="s2Bag">Concrete Bag Size</label>
+      <select id="s2Bag">
+        <option value="80">80 lb bag</option>
+        <option value="60">60 lb bag</option>
+        <option value="40">40 lb bag</option>
+      </select>
+    </div>
+
+    <div class="results" id="s2Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Net Volume (incl. 10% waste)</span>
+        <span class="results__value" id="s2VolOut">0.00 <small class="unit-vol3">cu ft</small></span>
+      </div>
+      <div class="results__row">
+        <span class="results__label">Volume</span>
+        <span class="results__value" id="s2YdOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Bags Needed</span>
+        <span class="results__value results__value--hero" id="s2BagsOut">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel3" role="tabpanel" aria-labelledby="tabBtn3" hidden>
+    <h2 class="panel__title">Trench, Aggregate &amp; Subbase Weight</h2>
+
+    <div class="field">
+      <label for="s3Length"><span class="unit-len">Total Run Length (ft)</span></label>
+      <input type="number" id="s3Length" inputmode="decimal" placeholder="e.g. 50" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s3Width"><span class="unit-len">Trench Width (ft)</span></label>
+      <input type="number" id="s3Width" inputmode="decimal" placeholder="e.g. 2" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s3Depth"><span class="unit-thick">Layer Thickness (in)</span></label>
+      <input type="number" id="s3Depth" inputmode="decimal" placeholder="e.g. 6" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s3Material">Subbase Material</label>
+      <select id="s3Material">
+        <option value="gravel">Crushed Stone / Gravel Mix</option>
+        <option value="sand">Coarse Masonry Sand</option>
+        <option value="dirt">Topsoil / Clean Fill Dirt</option>
+      </select>
+    </div>
+
+    <div class="results" id="s3Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Volume (incl. 10% margin)</span>
+        <span class="results__value" id="s3VolOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Material Weight</span>
+        <span class="results__value results__value--hero" id="s3TonOut">0.00 <small id="s3TonUnit">tons</small></span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="adslot adslot--bottom" id="adBottom" aria-hidden="true"></div>
+
+<section class="seo">
+  <h2>How Many 80lb Bags of Concrete Do I Need for a 4x4 Post Hole?</h2>
+  <p>For a typical 10 inch diameter hole dug 24 inches deep for a 4x4 post, subtract the buried post's volume from the cylinder volume, then add a 10 percent wastage margin. That generally lands between 1 and 2 bags of 80lb premix per hole, though soil conditions can shift the figure slightly.</p>
+
+  <h2>How Many Bags of Concrete Do I Need for a 10x10 Slab at 4 Inches Thick?</h2>
+  <p>A 10 foot by 10 foot slab poured 4 inches deep requires about 1.23 cubic yards of concrete once the standard 10 percent wastage buffer is included, which equals roughly 56 bags of 80lb premix.</p>
+
+  <h2>How Much Gravel Do I Need for a Trench Subbase?</h2>
+  <p>Multiply trench length by width by depth in feet to get cubic feet, divide by 27 for cubic yards, add a 10 percent compaction margin, then multiply by 1.4 tons per cubic yard for crushed stone.</p>
+
+  <table class="seo__table">
+    <caption>Quick Reference: Common Slab Sizes at 4&quot; Depth (80lb Bags, 10% Waste Included)</caption>
+    <thead>
+      <tr>
+        <th scope="col">Slab Size</th>
+        <th scope="col">Cubic Yards</th>
+        <th scope="col">80lb Bags</th>
+        <th scope="col">60lb Bags</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>8 ft × 8 ft</td><td>0.78</td><td>36</td><td>47</td></tr>
+      <tr><td>10 ft × 10 ft</td><td>1.23</td><td>56</td><td>74</td></tr>
+      <tr><td>12 ft × 12 ft</td><td>1.76</td><td>80</td><td>106</td></tr>
+      <tr><td>16 ft × 16 ft</td><td>3.13</td><td>142</td><td>189</td></tr>
+      <tr><td>20 ft × 20 ft</td><td>4.89</td><td>222</td><td>295</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer class="sitefoot">
+  <div class="sitefoot__disclaimer">
+    <strong>Important Notice:</strong> All calculations are estimates based on standard industry yield ratings and a flat 10 percent wastage margin. Actual material needs vary with soil compaction, sub-grade unevenness, form leakage, and mix consistency. Always order additional material as a contingency and consult a licensed contractor or structural engineer for load-bearing or permitted work.
+  </div>
+  <nav class="sitefoot__links" aria-label="Legal">
+    <a href="/privacy.html">Privacy Policy</a>
+    <span class="sitefoot__divider" aria-hidden="true">&middot;</span>
+    <a href="/terms.html">Terms of Service</a>
+  </nav>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var FT_TO_M = 0.3048;
+  var IN_TO_CM = 2.54;
+  var CUFT_TO_CUM = 0.0283168;
+  var CUYD_TO_CUM = 0.764555;
+  var TON_TO_TONNE = 0.907185;
+
+  var isMetric = false;
+
+  var lengthInputs = ["s1Length", "s1Width", "s1Diam", "s3Length", "s3Width"];
+  var thicknessInputs = ["s1Depth", "s2Diam", "s2Depth", "s3Depth"];
+
+  var labelMap = [
+    { selector: "#s1LengthWrap label .unit-len", imperial: "Length (ft)", metric: "Length (m)" },
+    { selector: "#s1WidthWrap label .unit-len", imperial: "Width (ft)", metric: "Width (m)" },
+    { selector: "#s1DiamWrap label .unit-len", imperial: "Diameter (ft)", metric: "Diameter (m)" },
+    { id: "s1Depth", imperial: "Depth / Thickness (in)", metric: "Depth / Thickness (cm)" },
+    { id: "s2Diam", imperial: "Hole Diameter (in)", metric: "Hole Diameter (cm)" },
+    { id: "s2Depth", imperial: "Excavation Depth (in)", metric: "Excavation Depth (cm)" },
+    { id: "s3Length", imperial: "Total Run Length (ft)", metric: "Total Run Length (m)" },
+    { id: "s3Width", imperial: "Trench Width (ft)", metric: "Trench Width (m)" },
+    { id: "s3Depth", imperial: "Layer Thickness (in)", metric: "Layer Thickness (cm)" }
+  ];
+
+  function $(id) { return document.getElementById(id); }
+  function num(id) {
+    var el = $(id);
+    if (!el) return 0;
+    var v = parseFloat(el.value);
+    return isNaN(v) || v < 0 ? 0 : v;
+  }
+
+  function bagYieldCuFt(size) {
+    if (size === "80") return 0.60;
+    if (size === "60") return 0.45;
+    return 0.30;
+  }
+
+  function fmt(n, places) {
+    if (!isFinite(n)) return "0";
+    return n.toFixed(places === undefined ? 2 : places);
+  }
+
+  function updateUnitLabels() {
+    labelMap.forEach(function (entry) {
+      var el = entry.id ? $(entry.id) : null;
+      var labelEl = null;
+      if (el) {
+        var wrap = el.closest(".field");
+        labelEl = wrap ? wrap.querySelector("label") : null;
+        if (labelEl) labelEl.textContent = isMetric ? entry.metric : entry.imperial;
+      } else if (entry.selector) {
+        var span = document.querySelector(entry.selector);
+        if (span) span.textContent = isMetric ? entry.metric : entry.imperial;
+      }
+    });
+
+    document.querySelectorAll(".unit-vol3").forEach(function (el) {
+      el.textContent = isMetric ? "m\u00B3" : "cu ft";
+    });
+    document.querySelectorAll(".unit-vol3y").forEach(function (el) {
+      el.textContent = isMetric ? "m\u00B3" : "cu yd";
+    });
+
+    $("s1YdOut").closest(".results__row").style.display = isMetric ? "none" : "flex";
+    $("s2YdOut").closest(".results__row").style.display = isMetric ? "none" : "flex";
+  }
+
+  function convertFieldValues(toMetric) {
+    lengthInputs.forEach(function (id) {
+      var el = $(id);
+      if (!el || el.value === "") return;
+      var v = parseFloat(el.value);
+      if (isNaN(v)) return;
+      el.value = toMetric ? round4(v * FT_TO_M) : round4(v / FT_TO_M);
+    });
+    thicknessInputs.forEach(function (id) {
+      var el = $(id);
+      if (!el || el.value === "") return;
+      var v = parseFloat(el.value);
+      if (isNaN(v)) return;
+      el.value = toMetric ? round4(v * IN_TO_CM) : round4(v / IN_TO_CM);
+    });
+  }
+
+  function round4(n) {
+    return Math.round(n * 10000) / 10000;
+  }
+
+  function toFeet(v) { return isMetric ? v / FT_TO_M : v; }
+  function toInches(v) { return isMetric ? v / IN_TO_CM : v; }
+
+  function calcSlab() {
+    var shape = $("s1Shape").value;
+    var depthIn = toInches(num("s1Depth"));
+    var volCuFt;
+
+    if (shape === "rect") {
+      var length = toFeet(num("s1Length"));
+      var width = toFeet(num("s1Width"));
+      volCuFt = length * width * (depthIn / 12);
+    } else {
+      var diam = toFeet(num("s1Diam"));
+      var radius = diam / 2;
+      volCuFt = Math.PI * radius * radius * (depthIn / 12);
+    }
+
+    var volWithWaste = volCuFt * 1.10;
+    var cuYd = volWithWaste / 27;
+    var bagSize = $("s1Bag").value;
+    var bags = Math.ceil(volWithWaste / bagYieldCuFt(bagSize));
+    if (volWithWaste <= 0) bags = 0;
+
+    var displayVol = isMetric ? volWithWaste * CUFT_TO_CUM : volWithWaste;
+    $("s1VolOut").firstChild.textContent = fmt(displayVol, isMetric ? 3 : 2) + " ";
+    $("s1YdOut").firstChild.textContent = fmt(cuYd, 2) + " ";
+    $("s1BagsOut").textContent = bags;
+  }
+
+  function calcFence() {
+    var holes = Math.max(0, Math.round(num("s2Count")));
+    var diamIn = toInches(num("s2Diam"));
+    var depthIn = toInches(num("s2Depth"));
+    var radiusFt = (diamIn / 2) / 12;
+    var depthFt = depthIn / 12;
+
+    var cylinderVol = Math.PI * radiusFt * radiusFt * depthFt * holes;
+
+    var postType = $("s2Post").value;
+    var sideIn = 0;
+    if (postType === "4x4") sideIn = 3.5;
+    if (postType === "6x6") sideIn = 5.5;
+
+    var volSaved = (sideIn / 12) * (sideIn / 12) * depthFt * holes;
+
+    var netVol = cylinderVol - volSaved;
+    if (netVol < 0) netVol = 0;
+
+    var netWithWaste = netVol * 1.10;
+    var cuYd = netWithWaste / 27;
+    var bagSize = $("s2Bag").value;
+    var bags = Math.ceil(netWithWaste / bagYieldCuFt(bagSize));
+    if (netWithWaste <= 0) bags = 0;
+
+    var displayVol = isMetric ? netWithWaste * CUFT_TO_CUM : netWithWaste;
+    $("s2VolOut").firstChild.textContent = fmt(displayVol, isMetric ? 3 : 2) + " ";
+    $("s2YdOut").firstChild.textContent = fmt(cuYd, 2) + " ";
+    $("s2BagsOut").textContent = bags;
+  }
+
+  function calcTrench() {
+    var length = toFeet(num("s3Length"));
+    var width = toFeet(num("s3Width"));
+    var depthIn = toInches(num("s3Depth"));
+
+    var volCuFt = length * width * (depthIn / 12);
+    var volWithMargin = volCuFt * 1.10;
+    var cuYd = volWithMargin / 27;
+
+    var material = $("s3Material").value;
+    var multiplier = 1.4;
+    if (material === "sand") multiplier = 1.3;
+    if (material === "dirt") multiplier = 1.2;
+
+    var tons = cuYd * multiplier;
+
+    var displayVol = isMetric ? volWithMargin * CUFT_TO_CUM : cuYd;
+    $("s3VolOut").firstChild.textContent = fmt(displayVol, isMetric ? 3 : 2) + " ";
+    document.querySelector("#s3VolOut .unit-vol3y").textContent = isMetric ? "m\u00B3" : "cu yd";
+
+    var displayTons = isMetric ? tons * TON_TO_TONNE : tons;
+    $("s3TonOut").firstChild.textContent = fmt(displayTons, 2) + " ";
+    $("s3TonUnit").textContent = isMetric ? "tonnes" : "tons";
+  }
+
+  function calcAll() {
+    calcSlab();
+    calcFence();
+    calcTrench();
+  }
+
+  function setupTabs() {
+    var btns = [$("tabBtn1"), $("tabBtn2"), $("tabBtn3")];
+    var panels = [$("panel1"), $("panel2"), $("panel3")];
+    btns.forEach(function (btn, idx) {
+      btn.addEventListener("click", function () {
+        btns.forEach(function (b, i) {
+          b.classList.toggle("is-active", i === idx);
+          b.setAttribute("aria-selected", i === idx ? "true" : "false");
+        });
+        panels.forEach(function (p, i) {
+          p.classList.toggle("is-active", i === idx);
+          p.hidden = i !== idx;
+        });
+      });
+    });
+  }
+
+  function setupShapeToggle() {
+    var shapeSelect = $("s1Shape");
+    shapeSelect.addEventListener("change", function () {
+      var isRect = shapeSelect.value === "rect";
+      $("s1LengthWrap").hidden = !isRect;
+      $("s1WidthWrap").hidden = !isRect;
+      $("s1DiamWrap").hidden = isRect;
+      calcAll();
+    });
+  }
+
+  function setupUnitToggle() {
+    var sw = $("unitSwitch");
+    sw.addEventListener("click", function () {
+      isMetric = !isMetric;
+      sw.setAttribute("aria-checked", isMetric ? "true" : "false");
+      $("unitLabelImperial").classList.toggle("is-active", !isMetric);
+      $("unitLabelMetric").classList.toggle("is-active", isMetric);
+      convertFieldValues(isMetric);
+      updateUnitLabels();
+      calcAll();
+    });
+  }
+
+  function setupLiveListeners() {
+    var allInputs = document.querySelectorAll(".panel input, .panel select");
+    allInputs.forEach(function (el) {
+      el.addEventListener("input", calcAll);
+      el.addEventListener("change", calcAll);
+    });
+  }
+
+  function init() {
+    setupTabs();
+    setupShapeToggle();
+    setupUnitToggle();
+    setupLiveListeners();
+    updateUnitLabels();
+    calcAll();
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+</body>
+</html>
