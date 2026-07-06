@@ -24,6 +24,18 @@
     { id: "s3Depth", imperial: "Layer Thickness (in)", metric: "Layer Thickness (cm)" }
   ];
 
+  var ROUTE_FENCE = "/concrete-fence-post-calculator";
+
+  // Metadata and SEO content for this route are now injected server-side by
+  // _worker.js. This client-side hook only needs to default the tool to the
+  // Post Holes tab so the UI matches the page the user landed on.
+  function initRouting() {
+    if (window.location.pathname === ROUTE_FENCE) {
+      var tab2 = document.getElementById("tabBtn2");
+      if (tab2) tab2.click();
+    }
+  }
+
   function $(id) { return document.getElementById(id); }
   function num(id) {
     var el = $(id);
@@ -237,6 +249,7 @@
     setupLiveListeners();
     updateUnitLabels();
     calcAll();
+    initRouting();
   }
 
   if (document.readyState === "loading") {
@@ -244,4 +257,5 @@
   } else {
     init();
   }
+})();
 })();
