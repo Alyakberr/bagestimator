@@ -333,6 +333,15 @@ body {
   margin: 28px 0 8px;
 }
 .seo p { margin: 0 0 4px; color: #3a3a38; }
+.faq-item {
+  margin-bottom: 18px;
+}
+.faq-item h3 {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  margin: 0 0 6px;
+}
+.faq-item p { margin: 0; color: #3a3a38; }
 .seo__table {
   width: 100%;
   border-collapse: collapse;
@@ -395,4 +404,3 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .unittoggle__knob { transition: none; }
 }
-
