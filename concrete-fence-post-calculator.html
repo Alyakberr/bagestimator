@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Fence Post Concrete Calculator | Bag &amp; Volume Estimator</title>
+<meta name="description" content="Calculate exactly how many 80lb, 60lb, or 20kg bags of concrete you need for fence posts and sonotubes. Accurately factors in lumber post displacement.">
+<link rel="canonical" href="https://bagestimator.com/concrete-fence-post-calculator.html">
+<meta property="og:title" content="Fence Post Concrete Calculator | Bag & Volume Estimator">
+<meta property="og:description" content="Instant bag counts for fence post holes and sonotubes, with lumber post displacement automatically subtracted.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Fence Post Concrete Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "description": "Instant calculator for how many bags of concrete you need for fence posts and sonotubes, with imperial and metric support.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many 50lb bags of concrete do I need for a fence post?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A standard 10-inch diameter hole dug 24 inches deep requires about 1.5 to 2 bags of 50lb concrete premix. Because 50lb bags contain less overall volume than standard 80lb bags, you will need roughly 60 percent more individual bags total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many 20kg bags of concrete for a post hole?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For a standard fence post hole 250mm in diameter and 600mm deep, you will need approximately 2 bags of 20kg dry concrete mix. Switching the calculator to Metric mode displays your total volume in cubic meters."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many posts will a 20kg bag of postcrete do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Generally, one 20kg bag of postcrete or fast-set post mix anchors one standard wooden fence post in a narrow hole, though holes dug to professional specifications may need 1.5 to 2 bags per post."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="adslot adslot--top" id="adTop" aria-hidden="true"></div>
+
+<header class="sitehead">
+  <div class="sitehead__bar"></div>
+  <div class="sitehead__ruler" aria-hidden="true"></div>
+  <div class="sitehead__inner">
+    <p class="sitehead__eyebrow">Job Site Math, Solved Instantly</p>
+    <h1 class="sitehead__title">Fence Post Concrete Calculator</h1>
+    <p class="sitehead__sub">Post holes and sonotubes — bag counts and volume as you type.</p>
+  </div>
+</header>
+
+<main class="appcard" id="appcard">
+
+  <div class="unittoggle">
+    <span class="unittoggle__label" id="unitLabelImperial">Imperial</span>
+    <button type="button" class="unittoggle__switch" id="unitSwitch" role="switch" aria-checked="false" aria-label="Toggle between imperial and metric units">
+      <span class="unittoggle__knob"></span>
+    </button>
+    <span class="unittoggle__label" id="unitLabelMetric">Metric</span>
+  </div>
+
+  <nav class="tabbar" role="tablist" aria-label="Calculator selection">
+    <button class="tabbar__btn" id="tabBtn1" role="tab" aria-selected="false" aria-controls="panel1" data-tab="1">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="1"></rect><path d="M3 12h18"></path></svg>
+      <span class="tabbar__num">01</span>Slab &amp; Patio
+    </button>
+    <button class="tabbar__btn is-active" id="tabBtn2" role="tab" aria-selected="true" aria-controls="panel2" data-tab="2">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="10" r="6"></circle><path d="M12 16v5"></path></svg>
+      <span class="tabbar__num">02</span>Post Holes
+    </button>
+    <button class="tabbar__btn" id="tabBtn3" role="tab" aria-selected="false" aria-controls="panel3" data-tab="3">
+      <svg class="tabbar__icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 18h20"></path><path d="M5 18l3-9h8l3 9"></path></svg>
+      <span class="tabbar__num">03</span>Trench &amp; Subbase
+    </button>
+  </nav>
+
+  <section class="panel" id="panel1" role="tabpanel" aria-labelledby="tabBtn1" hidden>
+    <h2 class="panel__title">Slab, Patio &amp; Footing Volume</h2>
+
+    <div class="field">
+      <label for="s1Shape">Shape</label>
+      <select id="s1Shape">
+        <option value="rect">Rectangular Slab</option>
+        <option value="circle">Circular / Round Patio</option>
+      </select>
+    </div>
+
+    <div class="field" id="s1LengthWrap">
+      <label for="s1Length"><span class="unit-len">Length (ft)</span></label>
+      <input type="number" id="s1Length" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.01">
+    </div>
+
+    <div class="field" id="s1WidthWrap">
+      <label for="s1Width"><span class="unit-len">Width (ft)</span></label>
+      <input type="number" id="s1Width" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.01">
+    </div>
+
+    <div class="field" id="s1DiamWrap" hidden>
+      <label for="s1Diam"><span class="unit-len">Diameter (ft)</span></label>
+      <input type="number" id="s1Diam" inputmode="decimal" placeholder="e.g. 12" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s1Depth"><span class="unit-thick">Depth / Thickness (in)</span></label>
+      <input type="number" id="s1Depth" inputmode="decimal" placeholder="e.g. 4" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s1Bag">Concrete Bag Size</label>
+      <select id="s1Bag">
+        <option value="80">80 lb bag</option>
+        <option value="60">60 lb bag</option>
+        <option value="40">40 lb bag</option>
+      </select>
+    </div>
+
+    <div class="results" id="s1Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Volume (incl. 10% waste)</span>
+        <span class="results__value" id="s1VolOut">0.00 <small class="unit-vol3">cu ft</small></span>
+      </div>
+      <div class="results__row">
+        <span class="results__label">Volume</span>
+        <span class="results__value" id="s1YdOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Bags Needed</span>
+        <span class="results__value results__value--hero" id="s1BagsOut">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel is-active" id="panel2" role="tabpanel" aria-labelledby="tabBtn2">
+    <h2 class="panel__title">Fence Post Hole &amp; Sonotube Estimator</h2>
+
+    <div class="field">
+      <label for="s2Count">Number of Holes</label>
+      <input type="number" id="s2Count" inputmode="decimal" placeholder="e.g. 6" min="0" step="1" value="1">
+    </div>
+
+    <div class="field">
+      <label for="s2Diam"><span class="unit-thick">Hole Diameter (in)</span></label>
+      <input type="number" id="s2Diam" inputmode="decimal" placeholder="e.g. 10" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s2Depth"><span class="unit-thick">Excavation Depth (in)</span></label>
+      <input type="number" id="s2Depth" inputmode="decimal" placeholder="e.g. 24" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s2Post">Submerged Lumber Post</label>
+      <select id="s2Post">
+        <option value="none">None / Concrete Column</option>
+        <option value="4x4">Standard 4x4 Post</option>
+        <option value="6x6">Heavy-Duty 6x6 Post</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="s2Bag">Concrete Bag Size</label>
+      <select id="s2Bag">
+        <option value="80">80 lb bag</option>
+        <option value="60">60 lb bag</option>
+        <option value="40">40 lb bag</option>
+      </select>
+    </div>
+
+    <div class="results" id="s2Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Net Volume (incl. 10% waste)</span>
+        <span class="results__value" id="s2VolOut">0.00 <small class="unit-vol3">cu ft</small></span>
+      </div>
+      <div class="results__row">
+        <span class="results__label">Volume</span>
+        <span class="results__value" id="s2YdOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Bags Needed</span>
+        <span class="results__value results__value--hero" id="s2BagsOut">0</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel3" role="tabpanel" aria-labelledby="tabBtn3" hidden>
+    <h2 class="panel__title">Trench, Aggregate &amp; Subbase Weight</h2>
+
+    <div class="field">
+      <label for="s3Length"><span class="unit-len">Total Run Length (ft)</span></label>
+      <input type="number" id="s3Length" inputmode="decimal" placeholder="e.g. 50" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s3Width"><span class="unit-len">Trench Width (ft)</span></label>
+      <input type="number" id="s3Width" inputmode="decimal" placeholder="e.g. 2" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="s3Depth"><span class="unit-thick">Layer Thickness (in)</span></label>
+      <input type="number" id="s3Depth" inputmode="decimal" placeholder="e.g. 6" min="0" step="0.125">
+    </div>
+
+    <div class="field">
+      <label for="s3Material">Subbase Material</label>
+      <select id="s3Material">
+        <option value="gravel">Crushed Stone / Gravel Mix</option>
+        <option value="sand">Coarse Masonry Sand</option>
+        <option value="dirt">Topsoil / Clean Fill Dirt</option>
+      </select>
+    </div>
+
+    <div class="results" id="s3Results" aria-live="polite">
+      <div class="results__row">
+        <span class="results__label">Volume (incl. 10% margin)</span>
+        <span class="results__value" id="s3VolOut">0.00 <small class="unit-vol3y">cu yd</small></span>
+      </div>
+      <div class="results__row results__row--hero">
+        <span class="results__label">Material Weight</span>
+        <span class="results__value results__value--hero" id="s3TonOut">0.00 <small id="s3TonUnit">tons</small></span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="adslot adslot--bottom" id="adBottom" aria-hidden="true"></div>
+
+<section class="seo">
+  <h2>How Many Bags of Concrete Do I Need for a Fence Post?</h2>
+  <p>When setting a standard fence post, the amount of concrete premix you need depends entirely on the depth and diameter of your hole. For most backyard projects, anchoring a standard 4x4 post or a mailbox post requires roughly 1 to 2 bags of 80lb concrete premix to anchor securely into the soil structure.</p>
+
+  <h2>Calculating Concrete for a 4x4 Post vs 6x6 Post</h2>
+  <p>A standard 4x4 lumber post actually measures 3.5 inches by 3.5 inches, while a heavy-duty 6x6 post measures 5.5 inches by 5.5 inches. Our estimator tool automatically subtracts this buried lumber volume displacement from your total cylinder calculation. If you do not subtract the buried wood volume, you will end up buying more concrete bags than necessary.</p>
+
+  <h2>Using an 8 Inch Sonotube or Concrete Form</h2>
+  <p>If you are pouring structural deck footings or columns using a cylindrical cardboard tube, an 8 inch sonotube dug to a depth of 24 inches will require roughly 0.70 cubic feet of concrete volume. This translates to just over 1 bag of 60lb mix or exactly 1 bag of 80lb concrete mix per hole, including a baseline 10% wastage margin for soil irregularities.</p>
+
+  <h2>Frequently Asked Post Hole Math Questions</h2>
+  <div class="faq-item">
+    <h3>How many 50lb bags of concrete do I need for a fence post?</h3>
+    <p>A standard 10-inch diameter hole dug 24 inches deep requires about 1.5 to 2 bags of 50lb concrete premix. Because 50lb bags contain less overall volume (approx. 0.37 cubic feet) than standard 80lb bags, you will need to buy roughly 60% more individual retail bags total if choosing this size layout.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How many 20kg bags of concrete for a post hole?</h3>
+    <p>For a standard fence post hole (250mm diameter by 600mm deep), you will need approximately 2 bags of 20kg dry concrete mix. If you swap our calculator from 'Imperial' to 'Metric' mode at the top of the page, it will instantly display your total volume in cubic meters and output exact metric bag requirements.</p>
+  </div>
+  <div class="faq-item">
+    <h3>How many posts will a 20kg bag of postcrete do?</h3>
+    <p>Generally, one 20kg bag of postcrete or fast-set post mix will anchor one standard wooden fence post in a narrow hole. However, if your hole is dug to professional structural specifications (three times the width of the post), you will likely need 1.5 to 2 bags of 20kg postcrete per post hole to fill it properly to ground level.</p>
+  </div>
+</section>
+
+<footer class="sitefoot">
+  <div class="sitefoot__disclaimer">
+    <strong>Important Notice:</strong> All calculations are estimates based on standard industry yield ratings and a flat 10 percent wastage margin. Actual material needs vary with soil compaction, sub-grade unevenness, form leakage, and mix consistency. Always order additional material as a contingency and consult a licensed contractor or structural engineer for load-bearing or permitted work.
+  </div>
+  <nav class="sitefoot__links" aria-label="Legal">
+    <a href="/privacy.html">Privacy Policy</a>
+    <span class="sitefoot__divider" aria-hidden="true">&middot;</span>
+    <a href="/terms.html">Terms of Service</a>
+  </nav>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
