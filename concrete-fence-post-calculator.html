@@ -32,26 +32,34 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How many 50lb bags of concrete do I need for a fence post?",
+      "name": "Should the concrete around a post be domed or left flat at the top?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A standard 10-inch diameter hole dug 24 inches deep requires about 1.5 to 2 bags of 50lb concrete premix. Because 50lb bags contain less overall volume than standard 80lb bags, you will need roughly 60 percent more individual bags total."
+        "text": "Domed and sloped away from the post is the better practice. A flat top holds standing water directly against the wood, which accelerates rot right at the point where the post is most vulnerable."
       }
     },
     {
       "@type": "Question",
-      "name": "How many 20kg bags of concrete for a post hole?",
+      "name": "Can a fence post be set without digging below the frost line?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "For a standard fence post hole 250mm in diameter and 600mm deep, you will need approximately 2 bags of 20kg dry concrete mix. Switching the calculator to Metric mode displays your total volume in cubic meters."
+        "text": "It can be done, but it's a gamble in any climate with real winter freezing. Posts set above the frost line are more likely to shift or heave upward over successive freeze-thaw cycles, even if they look solid the first year."
       }
     },
     {
       "@type": "Question",
-      "name": "How many posts will a 20kg bag of postcrete do?",
+      "name": "How soon can rails or panels be attached after setting a post in concrete?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Generally, one 20kg bag of postcrete or fast-set post mix anchors one standard wooden fence post in a narrow hole, though holes dug to professional specifications may need 1.5 to 2 bags per post."
+        "text": "Dry-set postcrete is often firm enough for light attachment within a few hours, but wet-mixed concrete needs closer to 48 to 72 hours before it should bear real structural load, with a full cure taking about a month."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do all fence posts need concrete, or can some be set in gravel?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Short, lightweight fencing in stable soil can sometimes use a tamped gravel base instead of concrete. For anything over a few feet tall, gate posts, or fencing exposed to real wind loading, concrete is the more dependable choice."
       }
     }
   ]
@@ -157,6 +165,16 @@
     <h2 class="panel__title">Fence Post Hole &amp; Sonotube Estimator</h2>
 
     <div class="field">
+      <label for="s2PostApp">Post Application</label>
+      <select id="s2PostApp">
+        <option value="custom">Custom (enter my own)</option>
+        <option value="line">Line Post (mid-run)</option>
+        <option value="corner">Corner / End Post</option>
+        <option value="gate">Gate Post</option>
+      </select>
+    </div>
+
+    <div class="field">
       <label for="s2Count">Number of Holes</label>
       <input type="number" id="s2Count" inputmode="decimal" placeholder="e.g. 6" min="0" step="1" value="1">
     </div>
@@ -249,28 +267,40 @@
 <div class="adslot adslot--bottom" id="adBottom" aria-hidden="true"></div>
 
 <section class="seo">
-  <h2>How Many Bags of Concrete Do I Need for a Fence Post?</h2>
-  <p>When setting a standard fence post, the amount of concrete premix you need depends entirely on the depth and diameter of your hole. For most backyard projects, anchoring a standard 4x4 post or a mailbox post requires roughly 1 to 2 bags of 80lb concrete premix to anchor securely into the soil structure.</p>
+  <h2>Fence Posts Aren't Just Small Footings</h2>
+  <p>It's tempting to treat a fence post hole as a miniature version of a slab pour, but the physics working against a fence post are actually pretty different from what's working against a flat pad. A slab mostly just has to sit there and carry weight straight down. A fence post has to resist sideways pressure — wind loading against panels, a dog leaning on it, snow buildup, someone swinging a gate against it for ten years straight — all while staying anchored in soil that expands, contracts, and shifts with the seasons. That lateral stress is why post footings are sized and shaped differently than a typical concrete pour, and why treating every post the same way on a fence line is one of the more common reasons people end up redoing sections a few years later.</p>
 
-  <h2>Calculating Concrete for a 4x4 Post vs 6x6 Post</h2>
-  <p>A standard 4x4 lumber post actually measures 3.5 inches by 3.5 inches, while a heavy-duty 6x6 post measures 5.5 inches by 5.5 inches. Our estimator tool automatically subtracts this buried lumber volume displacement from your total cylinder calculation. If you do not subtract the buried wood volume, you will end up buying more concrete bags than necessary.</p>
+  <h2>Not Every Post on the Line Carries the Same Load</h2>
+  <p>A line post — one of the regular posts spaced evenly along a straight run — is mostly just holding up panel weight and resisting wind. Corner posts, end posts, and especially gate posts are a different story. Corner and end posts absorb the tension of the fence line pulling against them from one direction, and gate posts take repeated swinging force plus the leverage of the gate's own weight hanging off one side. That's why contractors routinely dig corner and gate post holes wider and deeper than line post holes, even on the same fence. The preset options on this calculator reflect that difference: selecting "Corner / End Post" or "Gate Post" from the Post Application dropdown will automatically load footing dimensions sized for that added stress, instead of leaving you to guess at how much bigger the hole should actually be.</p>
 
-  <h2>Using an 8 Inch Sonotube or Concrete Form</h2>
-  <p>If you are pouring structural deck footings or columns using a cylindrical cardboard tube, an 8 inch sonotube dug to a depth of 24 inches will require roughly 0.70 cubic feet of concrete volume. This translates to just over 1 bag of 60lb mix or exactly 1 bag of 80lb concrete mix per hole, including a baseline 10% wastage margin for soil irregularities.</p>
+  <h2>Dry-Set Postcrete vs. Wet-Mixed Concrete</h2>
+  <p>There are two genuinely different ways to set a post, and a lot of first-time fence builders don't realize they're choosing between them. Dry-set postcrete gets poured into the hole as a dry powder, then water is poured directly on top and left to soak down and react in place — no mixing tub required, and it typically sets hard enough to hold the post upright within 15 to 30 minutes. Wet-mixed concrete gets fully mixed to a workable consistency before it goes in the hole, which takes longer and requires a mixing tub or wheelbarrow, but generally produces a stronger, more uniform footing for larger or load-bearing posts. For a short stretch of backyard fencing, dry-set postcrete is often the more practical choice. For gate posts, retaining structures, or anything supporting real weight, wet-mixed concrete is usually worth the extra effort.</p>
 
-  <h2>Frequently Asked Post Hole Math Questions</h2>
-  <div class="faq-item">
-    <h3>How many 50lb bags of concrete do I need for a fence post?</h3>
-    <p>A standard 10-inch diameter hole dug 24 inches deep requires about 1.5 to 2 bags of 50lb concrete premix. Because 50lb bags contain less overall volume (approx. 0.37 cubic feet) than standard 80lb bags, you will need to buy roughly 60% more individual retail bags total if choosing this size layout.</p>
-  </div>
-  <div class="faq-item">
-    <h3>How many 20kg bags of concrete for a post hole?</h3>
-    <p>For a standard fence post hole (250mm diameter by 600mm deep), you will need approximately 2 bags of 20kg dry concrete mix. If you swap our calculator from 'Imperial' to 'Metric' mode at the top of the page, it will instantly display your total volume in cubic meters and output exact metric bag requirements.</p>
-  </div>
-  <div class="faq-item">
-    <h3>How many posts will a 20kg bag of postcrete do?</h3>
-    <p>Generally, one 20kg bag of postcrete or fast-set post mix will anchor one standard wooden fence post in a narrow hole. However, if your hole is dug to professional structural specifications (three times the width of the post), you will likely need 1.5 to 2 bags of 20kg postcrete per post hole to fill it properly to ground level.</p>
-  </div>
+  <h2>Digging Below the Frost Line</h2>
+  <p>In regions that get real winter freezes, soil moisture below the surface expands as it freezes and contracts as it thaws — a cycle known as frost heave, and it's strong enough to slowly push a post straight up out of the ground over a few winters if the footing doesn't go deep enough. Local building departments publish a frost line depth for exactly this reason, and it varies enormously by region: a few inches in the mildest climates, several feet in the coldest. Digging to that published depth, not just to a number that feels deep enough, is the difference between a fence that's still straight in ten years and one that's visibly leaning by year three. It's worth a quick call to your local permitting office or a look at your region's building code before you dig, since guessing on this one tends to be an expensive mistake to fix later.</p>
+
+  <h2>Bell-Shaped Footings and Why Some Codes Ask For Them</h2>
+  <p>Some fence and deck codes call for a "bell" or "flare" at the bottom of the hole — wider at the base than at the top, like an upside-down cone. The idea is straightforward: a wider base resists being pulled straight up out of the ground far better than a straight cylindrical shaft does, which directly counters frost heave and uplift forces. Hand-digging a proper bell shape with a clamshell digger takes more effort than a straight power-auger hole, but for taller fences, exposed corner posts, or anything in a high-wind area, it's a small amount of extra labor for a meaningfully more stable result.</p>
+
+  <h2>Common Reasons Posts Fail Early</h2>
+  <p>Most fence post failures trace back to one of a small handful of causes. Wood rot at the ground line is probably the most common — even pressure-treated lumber breaks down faster right where it meets soil and moisture, which is why some installers deliberately keep the buried post length in direct contact with concrete rather than backfilled dirt, and why concrete should be gently sloped or domed at the top so water runs away from the post instead of pooling around it. Under-digging is the second big cause — a hole that looks deep enough by eye but falls short of a proper frost-line or leverage-ratio depth. And rushing the cure is the third: attaching panels, rails, or a swinging gate to a post before the concrete has had time to reach real strength puts stress on a footing that hasn't finished curing, which can crack or loosen it before it's ever had a fair chance to hold.</p>
+
+  <h2>Post Hole Questions Worth Getting Right</h2>
+
+  <h3>Should the concrete around a post be domed or left flat at the top?</h3>
+  <p>Domed and sloped away from the post is the better practice. A flat top holds standing water directly against the wood, which accelerates rot right at the point where the post is most vulnerable.</p>
+
+  <h3>Can a fence post be set without digging below the frost line?</h3>
+  <p>It can be done, but it's a gamble in any climate with real winter freezing. Posts set above the frost line are more likely to shift or heave upward over successive freeze-thaw cycles, even if they look perfectly solid the first year.</p>
+
+  <h3>How soon can rails or panels be attached after setting a post in concrete?</h3>
+  <p>Dry-set postcrete is often firm enough for light attachment within a few hours, but wet-mixed concrete needs closer to 48 to 72 hours before it should bear real structural load, and a full cure still takes about a month. Gate posts specifically benefit from waiting the longer window, since a swinging gate puts repeated stress on the footing.</p>
+
+  <h3>Do all fence posts need concrete, or can some just be set in gravel or compacted soil?</h3>
+  <p>Short, lightweight fencing in stable soil can sometimes get away with a tamped gravel base instead of concrete, and it does allow better drainage around the post base. But for anything over a few feet tall, for gate posts, or for fencing that needs to hold up to real wind loading, concrete is the more dependable choice.</p>
+
+  <h3>Is postcrete actually strong enough for a real gate post, or is wet-mixed concrete required?</h3>
+  <p>For a lightweight garden gate, postcrete alone is usually fine. For a heavier gate, a double-gate opening, or anything with real ongoing swing stress, most experienced installers step up to wet-mixed concrete, size the hole using the wider corner/gate post dimensions, and let it cure fully before hanging the gate hardware.</p>
 </section>
 
 <footer class="sitefoot">
