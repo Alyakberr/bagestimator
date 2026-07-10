@@ -242,11 +242,43 @@
     });
   }
 
+  // Fence-post-specific preset dropdown. Only present on the fence post
+  // calculator page, so this is a no-op everywhere else.
+  var POST_APP_PRESETS = {
+    line:   { diamIn: 10, depthIn: 24, post: "4x4" },
+    corner: { diamIn: 12, depthIn: 30, post: "6x6" },
+    gate:   { diamIn: 14, depthIn: 36, post: "6x6" }
+  };
+
+  function setupPostAppPreset() {
+    var sel = $("s2PostApp");
+    if (!sel) return;
+
+    sel.addEventListener("change", function () {
+      var preset = POST_APP_PRESETS[sel.value];
+      if (!preset) return; // "custom" leaves current field values untouched
+
+      var diamEl = $("s2Diam");
+      var depthEl = $("s2Depth");
+      var postEl = $("s2Post");
+
+      var diamVal = isMetric ? round4(preset.diamIn * IN_TO_CM) : preset.diamIn;
+      var depthVal = isMetric ? round4(preset.depthIn * IN_TO_CM) : preset.depthIn;
+
+      if (diamEl) diamEl.value = diamVal;
+      if (depthEl) depthEl.value = depthVal;
+      if (postEl) postEl.value = preset.post;
+
+      calcAll();
+    });
+  }
+
   function init() {
     setupTabs();
     setupShapeToggle();
     setupUnitToggle();
     setupLiveListeners();
+    setupPostAppPreset();
     updateUnitLabels();
     calcAll();
     initRouting();
